@@ -34,8 +34,8 @@ class Validator:
     
     def validate_passport(self):
         return all(
-            elem in passport for elem in ['byr','iyr','eyr','hgt','hcl','ecl','pid']
-        ) and len(self.passport) >= 7 and all(
+            elem in self.passport for elem in ['byr','iyr','eyr','hgt','hcl','ecl','pid']
+        ) and all(
             [
                     self._validate_birth_year(self.passport['byr']),
                     self._validate_issue_year(self.passport['iyr']),
