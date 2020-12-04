@@ -21,37 +21,32 @@ class Validator:
         return (len(expiration_year)==4) and (2020<=int(expiration_year)<=2030)
     
     def _validate_height(self, height):
-        if re.match('(:?^(1[5-8][0-9]|19[0-3])(cm)$|^(5[9]|[6][0-9]|7[0-6])(in)$)',height):
-            return True
-        return False
+        hgt_regex = re.compile('(:?^(1[5-8][0-9]|19[0-3])(cm)$|^(5[9]|[6][0-9]|7[0-6])(in)$)')
+        return bool(hgt_regex.match(height))
     
     def _validate_hair_colour(self, hair_colour):
-        if re.match('^#([0-9a-f]){6}$', hair_colour):
-            return True
-        return False
+        hcl_regex = re.compile('^#([0-9a-f]){6}$')
+        return bool(hcl_regex.match(hair_colour))
     
     def _validate_eye_colour(self, eye_colour):
         return eye_colour in ['amb','blu','brn','gry','grn','hzl','oth']
     
     def _validate_passport_id(self, passport_id):
-        if re.match('^[0-9]{9}$', passport_id):
-            return True
-        return False
+        pid_regex = re.compile('^[0-9]{9}$')
+        return bool(pid_regex.match(passport_id))
     
     def validate_passport(self):
-        if len(self.passport) >= 7:
-            return all(
-                    [
-                        self._validate_birth_year(self.passport['byr']),
-                        self._validate_issue_year(self.passport['iyr']),
-                        self._validate_expiration_year(self.passport['eyr']),
-                        self._validate_height(self.passport['hgt']),
-                        self._validate_hair_colour(self.passport['hcl']),
-                        self._validate_eye_colour(self.passport['ecl']),
-                        self._validate_passport_id(self.passport['pid'])
-                    ]
-                ) and all(
-                        elem in passport for elem in ['byr','iyr','eyr','hgt','hcl','ecl','pid']
-                )
-        return False
+        return all(
+            elem in passport for elem in ['byr','iyr','eyr','hgt','hcl','ecl','pid']
+        ) and len(self.passport) >= 7 and all(
+            [
+                    self._validate_birth_year(self.passport['byr']),
+                    self._validate_issue_year(self.passport['iyr']),
+                    self._validate_expiration_year(self.passport['eyr']),
+                    self._validate_height(self.passport['hgt']),
+                    self._validate_hair_colour(self.passport['hcl']),
+                    self._validate_eye_colour(self.passport['ecl']),
+                    self._validate_passport_id(self.passport['pid'])
+            ]
+        )
 print(sum([Validator(passport).validate_passport() for passport in data]))
