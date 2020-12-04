@@ -1,17 +1,10 @@
+import itertools
 import numpy as np
-from os.path import abspath, dirname
-from os import getcwd
-from pathlib import Path
 
-try:
-    p = Path(__file__).parent
-    file_location = p / 'puzzle_input.txt'
-except NameError:
-    file_location = 'puzzle_input.txt'
+from utils import get_file_location
 
-
-# read in data
-with open(file_location) as f:
+# data load
+with open(get_file_location(day=3)) as f:
     data = f.read().split('\n')
 
 # configure data

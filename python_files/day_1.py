@@ -1,8 +1,10 @@
 import itertools
 import numpy as np
 
-# data load
-with open('puzzle_input.txt') as f:
+from utils import get_file_location
+
+# data_load
+with open(get_file_location(day=1)) as f:
     data = [int(x) for x in f.read().split('\n')]
     
 # part 1

@@ -1,6 +1,8 @@
 import re
 
-with open('puzzle_input.txt') as f:
+from utils import get_file_location
+
+with open(get_file_location(day=4)) as f:
     data = [{y.split(':')[0]:y.split(':')[1] for y in x.replace('\n',' ').split(' ') if y.split(':')[0] != 'cid'} for x in f.read().split('\n\n')]
     
 # part 1
