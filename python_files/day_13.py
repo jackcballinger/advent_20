@@ -39,3 +39,6 @@ bus_timetable = BusTimetable(data)
 
 # part 1
 print(bus_timetable.get_earliest_bus()) # 104
+
+# part 2
+print(bus_timetable.get_earliest_timestamp()) # 842186186521918
